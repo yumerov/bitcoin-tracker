@@ -2,21 +2,18 @@
 
 namespace App\Providers;
 
+use App\Bitcoin\Bitfinex\Client;
+use App\Bitcoin\Common\ClientInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
+
     public function register(): void
     {
-        //
+        $this->app->bind(ClientInterface::class, Client::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         //
