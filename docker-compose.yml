@@ -1,37 +1,50 @@
 version: '3.8'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: docker.io/bitnami/laravel:10
-    container_name: bitcoin-tracker
-    restart: unless-stopped
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
-    environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=bitcoin_tracker
-      - DB_USERNAME=tracker
-      - DB_PASSWORD=tracker
-    depends_on:
-      - db
-    entrypoint: php artisan serve --host 0.0.0.0
+    app:
+        image: docker.io/bitnami/laravel:10
+        container_name: bitcoin-tracker
+        restart: unless-stopped
+        ports:
+            - "8000:8000"
+        volumes:
+            - .:/app
+        environment:
+            - DB_HOST=db
+            - DB_PORT=3306
+            - DB_DATABASE=bitcoin_tracker
+            - DB_USERNAME=tracker
+            - DB_PASSWORD=tracker
+        depends_on:
+            - db
+            - cron
+        entrypoint: php artisan serve --host 0.0.0.0
 
-  db:
-    image: docker.io/bitnami/mariadb:10.6
-    container_name: bitcoin-tracker-db
-    restart: unless-stopped
-    environment:
-      - MARIADB_DATABASE=bitcoin_tracker
-      - MARIADB_USER=tracker
-      - MARIADB_PASSWORD=tracker
-      - MARIADB_ROOT_PASSWORD=root
-    volumes:
-      - ./mysql:/var/lib/mysql
-    ports:
-      - "3306:3306"
+    db:
+        image: docker.io/bitnami/mariadb:10.6
+        container_name: bitcoin-tracker-db
+        restart: unless-stopped
+        environment:
+            - MARIADB_DATABASE=bitcoin_tracker
+            - MARIADB_USER=tracker
+            - MARIADB_PASSWORD=tracker
+            - MARIADB_ROOT_PASSWORD=root
+        volumes:
+            - ./mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+
+#    cron:
+#        build:
+#            context: .
+#            dockerfile: cron.Dockerfile
+#        container_name: cron
+#        restart: unless-stopped
+#        volumes:
+#            - .:/app
+#        environment:
+#            - DB_HOST=db
+#            - DB_PORT=3306
+#            - DB_DATABASE=bitcoin_tracker
+#            - DB_USERNAME=tracker
+#            - DB_PASSWORD=tracker
