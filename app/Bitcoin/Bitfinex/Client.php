@@ -37,9 +37,8 @@ class Client implements ClientInterface
                  $this->logger->info('[Bitfinex] Get the price successfully: ' . $apiResponse->lastPrice);
              }
 
-            $response = new ResponseAdapter($apiResponse);
-            return $response;
-        } catch (Exception|GuzzleException|InvalidArgumentException $ex) {
+            return new ResponseAdapter($apiResponse);
+        } catch (GuzzleException|InvalidArgumentException $ex) {
             $this->logger->error($ex->getMessage());
         }
 
@@ -93,7 +92,7 @@ class Client implements ClientInterface
             floatval($decodedResponse['low'] ?? null),
             floatval($decodedResponse['high'] ?? null),
             floatval($decodedResponse['volume'] ?? null),
-            floatval($decodedResponse['ask'] ?? null),
+            floatval($decodedResponse['timestamp'] ?? null),
         );
     }
 }
