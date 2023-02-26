@@ -26,5 +26,6 @@ class ResponseAdapterTest extends TestCase
 
         // Assert
         $this->assertEquals($response->lastPrice, $adaptedResponse->getPrice());
+        $this->assertEquals($response->timestamp, $adaptedResponse->getTimestamp());
     }
 }

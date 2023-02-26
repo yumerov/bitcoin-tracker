@@ -14,4 +14,9 @@ class ResponseAdapter implements ResponseInterface
     {
         return $this->response->lastPrice;
     }
+
+    public function getTimestamp(): float
+    {
+        return $this->response->timestamp;
+    }
 }
