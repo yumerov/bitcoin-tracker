@@ -9,25 +9,37 @@ use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Log\LoggerInterface;
 use Illuminate\Contracts\Validation\Factory as Validator;
+use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\InvalidArgumentException;
 
 class Client implements ClientInterface
 {
 
     private const URL = 'https://api.bitfinex.com/v1/pubticker/btcusd';
+    private const CACHE_TTL_IN_SECONDS = 30;
+    private const CACHE_KEY = 'bitfinex_bitcoin_price';
 
     public function __construct(
         private readonly HttpClient $client,
         private readonly LoggerInterface $logger,
-        private readonly Validator $validator
+        private readonly Validator $validator,
+        private readonly CacheInterface $cache
     ) { }
 
     public function get(): ?ResponseInterface
     {
         try {
-            $response = new ResponseAdapter($this->callApi());
-            $this->logger->info('[Bitfinex] Get the price successfully: ' . $response->getPrice());
+             $apiResponse = $this->cache->get(self::CACHE_KEY);
+
+             if ($apiResponse === null) {
+                 $apiResponse = $this->callApi();
+                 $this->cache->set(self::CACHE_KEY, $apiResponse, self::CACHE_TTL_IN_SECONDS);
+                 $this->logger->info('[Bitfinex] Get the price successfully: ' . $apiResponse->lastPrice);
+             }
+
+            $response = new ResponseAdapter($apiResponse);
             return $response;
-        } catch (Exception|GuzzleException $ex) {
+        } catch (Exception|GuzzleException|InvalidArgumentException $ex) {
             $this->logger->error($ex->getMessage());
         }
 
