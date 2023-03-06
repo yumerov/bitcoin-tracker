@@ -38,7 +38,7 @@ class Client implements ClientInterface
              }
 
             return new ResponseAdapter($apiResponse);
-        } catch (GuzzleException|InvalidArgumentException $ex) {
+        } catch (Exception|GuzzleException|InvalidArgumentException $ex) {
             $this->logger->error($ex->getMessage());
         }
 
@@ -55,7 +55,7 @@ class Client implements ClientInterface
 
         $statusCode = $response->getStatusCode();
         if ($statusCode !== 200) {
-            throw new Exception('[Bitfinex] ' . $statusCode . 'is an invalid status code');
+            throw new Exception('[Bitfinex] ' . $statusCode . ' is an invalid status code');
         }
 
         $jsonString = $response->getBody()->getContents();
