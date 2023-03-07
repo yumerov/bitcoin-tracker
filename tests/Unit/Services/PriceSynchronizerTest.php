@@ -6,18 +6,30 @@ use App\Bitcoin\Bitfinex\Response;
 use App\Bitcoin\Bitfinex\ResponseAdapter;
 use App\Bitcoin\Common\ClientInterface;
 use App\Services\PriceSynchronizer;
-use PHPUnit\Framework\TestCase;
+use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\MockObject\Exception as MockException;
 use Psr\Log\LoggerInterface;
+use Tests\TestCase;
+use Exception;
 
 class PriceSynchronizerTest extends TestCase
 {
 
+    use RefreshDatabase;
     private PriceSynchronizer $synchronizer;
     private ClientInterface $client;
     private LoggerInterface $logger;
 
+    /**
+     * @return void
+     * @throws MockException
+     */
     protected function setUp(): void
     {
+        parent::setUp();
+        $this->refreshInMemoryDatabase();
+
         $this->client = $this->createMock(ClientInterface::class);
         $this->logger = $this->createMock(LoggerInterface::class);
 
@@ -27,10 +39,10 @@ class PriceSynchronizerTest extends TestCase
         );
     }
 
-    public function testSynchronizeFailed()
+    public function test_synchronize_failed()
     {
         // Arrange
-        $exception = new \Exception('Manual fail');
+        $exception = new Exception('Manual fail');
         $this->client
             ->expects($this->once())
             ->method('get')
@@ -45,7 +57,7 @@ class PriceSynchronizerTest extends TestCase
         $this->synchronizer->synchronize();
     }
 
-    public function testSynchronizeNoResponse()
+    public function test_synchronize_no_response()
     {
         // Arrange
         $this->client
@@ -62,9 +74,8 @@ class PriceSynchronizerTest extends TestCase
         $this->synchronizer->synchronize();
     }
 
-    public function testSynchronizeSuccessfully()
+    public function test_synchronize_successfully()
     {
-        $this->markTestSkipped('Complete after setting in-memory database or another method');
         // Arrange
         $response = new ResponseAdapter(new Response(
             null,
@@ -79,7 +90,7 @@ class PriceSynchronizerTest extends TestCase
         $priceArray = [
             'id' => 1,
             'price' => $response->getPrice(),
-            'timestamp' => $response->getTimestamp()
+            'timestamp' => Carbon::parse($response->getTimestamp())->format('Y-m-d H:i:s')
         ];
 
         $this->client
