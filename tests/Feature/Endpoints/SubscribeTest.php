@@ -2,9 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\PriceNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class SubscribeTest extends TestCase
@@ -44,7 +42,7 @@ class SubscribeTest extends TestCase
             'email' => self::EMAIL,
             'price' => self::PRICE
         ];
-        $response = $this->post('/api/subscribe', $data);
+        $this->post('/api/subscribe', $data);
         $this->assertDatabaseCount('price_notifications', 1);
 
         // Act
@@ -52,12 +50,82 @@ class SubscribeTest extends TestCase
 
         // Assert
         $response->assertStatus(422);
-        $this->assertEquals("{\"errors\":{\"price\":[\"Already the email '" . self::EMAIL . "' for the price '" . self::PRICE . "'\"]}}", $response->getContent());
+        $response->assertContent("{\"errors\":{\"price\":[\"Already the email '" . self::EMAIL . "' for the price '" . self::PRICE . "'\"]}}");
+        $this->assertDatabaseCount('price_notifications', 1);
+    }
+
+    public function test_subscribe_price_precision(): void
+    {
+        // Arrange
+        $data = [
+            'email' => self::EMAIL,
+            'price' => self::PRICE
+        ];
+        $this->post('/api/subscribe', $data);
+        $this->assertDatabaseCount('price_notifications', 1);
+        $data['price'] += 0.001;
+
+        // Act
+        $response = $this->post('/api/subscribe', $data);
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertContent("{\"errors\":{\"price\":[\"Already the email '" . self::EMAIL . "' for the price '" . $data['price'] . "'\"]}}");
         $this->assertDatabaseCount('price_notifications', 1);
     }
 
     public function test_subscribe_fail_data_persist(): void
     {
         $this->markTestIncomplete('Currently cannot cause data persist issue to return an error message');
+    }
+
+    public function test_subscribe_email_validations(): void
+    {
+        // Arrange
+        $data = [
+            'price' => self::PRICE
+        ];
+
+        // Act
+        $response = $this->post('/api/subscribe', $data);
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertContent('{"errors":{"email":["The email field is required."]}}');
+        $this->assertDatabaseCount('price_notifications', 0);
+
+        // Act
+        $data['email'] = 'wrongemailformat';
+        $response = $this->post('/api/subscribe', $data);
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertContent('{"errors":{"email":["The email field must be a valid email address."]}}');
+        $this->assertDatabaseCount('price_notifications', 0);
+    }
+
+    public function test_subscribe_price_validations(): void
+    {
+        // Arrange
+        $data = [
+            'email' => self::EMAIL
+        ];
+
+        // Act
+        $response = $this->post('/api/subscribe', $data);
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertContent('{"errors":{"price":["The price field is required."]}}');
+        $this->assertDatabaseCount('price_notifications', 0);
+
+        // Act
+        $data['price'] = -1;
+        $response = $this->post('/api/subscribe', $data);
+
+        // Assert
+        $response->assertStatus(422);
+        $response->assertContent('{"errors":{"price":["The price field must be greater than 0."]}}');
+        $this->assertDatabaseCount('price_notifications', 0);
     }
 }
