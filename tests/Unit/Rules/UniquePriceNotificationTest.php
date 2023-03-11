@@ -20,7 +20,7 @@ class UniquePriceNotificationTest extends TestCase
     {
         parent::setUp();
         $this->refreshInMemoryDatabase();
-        $this->rule = new UniquePriceNotification();
+        $this->rule = new UniquePriceNotification(self::EMAIL, self::PRICE);
     }
 
     public function test_validate_not_existing()
@@ -31,7 +31,7 @@ class UniquePriceNotificationTest extends TestCase
         // Act
         $this->rule->validate(
             'attribute',
-            [self::EMAIL, self::PRICE],
+            null,
             function () use (&$valid) {
                 $valid = false;
             });
