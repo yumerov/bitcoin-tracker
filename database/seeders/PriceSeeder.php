@@ -20,7 +20,7 @@ class PriceSeeder extends Seeder
         $timestamp = Carbon::now();
 
         for ($i = 1; $i <= 100; $i++) {
-            $price = $price + $faker->randomFloat(2, -100, 100);
+            $price = $price + $faker->randomFloat(2, -500, 500);
             $product = new Price([
                 'price' => $price,
                 'timestamp' => $timestamp->addMinute()->format('Y-m-d H:i:s')
