@@ -5,6 +5,11 @@ namespace App\Models;
 use Carbon\Carbon as Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int|null $id
+ * @property float|null $price
+ * @property price|null $timestamp
+ */
 class Price extends Model
 {
     protected $fillable = [

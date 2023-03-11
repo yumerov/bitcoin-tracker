@@ -20,10 +20,9 @@ class PriceSynchronizer
         try {
             $response = $this->client->get();
             if ($response !== null) {
-                $price = new Price([
-                    'price' => $response->getPrice(),
-                    'timestamp' => $response->getTimestamp()
-                ]);
+                $price = new Price();
+                $price->price = $response->getPrice();
+                $price->timestamp = $response->getTimestamp();
                 $price->save();
                 $this->logger->info('[PriceSynchronizer] Stored successfully', [
                     'id' => $price->id,
