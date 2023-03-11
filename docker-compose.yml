@@ -17,7 +17,7 @@ services:
             - DB_PASSWORD=tracker
         depends_on:
             - db
-            - cron
+#            - cron
         entrypoint: php artisan serve --host 0.0.0.0
 
     db:
