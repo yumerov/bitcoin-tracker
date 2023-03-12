@@ -6,13 +6,23 @@ A simple laravel based application for tracking the changes in bitcoin price.
 
 Currently tested only under Windows 10 with sqlite because of technical issues related to Docker Desktop for Windows, so it requires php locally(described in composer.json).
 
-## Running locally
+## Setup
+
+### Running locally
 
 Running locally requires set up docker.
 
 Run the migrations: `php artisan migrate --seed`.
 
 To run the application run the bash command: `php artisan serve`.
+
+### Hooks
+
+`cp pre-push .git/hooks`
+
+### Testing
+
+`composer run test`
 
 ## Check list
 - [ ] Manual testing
