@@ -24,5 +24,8 @@ jobs:
     - name: Generate key
       run: php artisan key:generate --ansi
 
+    - name: Code style
+      run: composer style
+
     - name: Run tests
       run: composer test
