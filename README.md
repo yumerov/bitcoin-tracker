@@ -18,7 +18,7 @@ To run the application run the bash command: `php artisan serve`.
 
 ### Hooks
 
-`cp pre-push .git/hooks`
+`cp pre-commit .git/hooks`
 
 ### Testing
 
