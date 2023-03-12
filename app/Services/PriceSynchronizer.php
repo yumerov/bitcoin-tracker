@@ -33,6 +33,7 @@ class PriceSynchronizer
             if ($response !== null) {
                 $price = new Price();
                 $price->price = $response->getPrice();
+                // @phpstan-ignore-next-line
                 $price->timestamp = $response->getTimestamp();
                 $price->save();
                 $this->logger->info('[PriceSynchronizer] Stored successfully', [
