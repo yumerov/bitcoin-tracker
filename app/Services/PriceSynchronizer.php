@@ -7,14 +7,25 @@ use App\Models\Price;
 use Psr\Log\LoggerInterface;
 use Exception;
 
+/**
+ * Synchronizes the persisted price using the passed client
+ */
 class PriceSynchronizer
 {
 
     public function __construct(
         private readonly ClientInterface $client,
         private readonly LoggerInterface $logger
-    ) { }
+    )
+    {
 
+    }
+
+    /**
+     * Calls the client and persists the price. If there is an error, logs it.
+     *
+     * @return void
+     */
     public function synchronize(): void
     {
         try {
@@ -27,7 +38,7 @@ class PriceSynchronizer
                 $this->logger->info('[PriceSynchronizer] Stored successfully', [
                     'id' => $price->id,
                     'price' => $price->price,
-                    'timestamp' => $price->timestamp
+                    'timestamp' => $price->timestamp,
                 ]);
             } else {
                 $this->logger->error('[PriceSynchronizer] Could not get response');

@@ -1,5 +1,9 @@
 <?php
 
+// phpcs:disable Squiz.WhiteSpace.MemberVarSpacing.FirstIncorrect
+// phpcs:disable Squiz.WhiteSpace.FunctionSpacing.Before
+// phpcs:disable Squiz.Commenting.InlineComment.Empty
+
 namespace App\Providers;
 
 use Illuminate\Auth\Events\Registered;

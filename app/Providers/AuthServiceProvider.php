@@ -1,5 +1,13 @@
 <?php
 
+// phpcs:disable Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed
+// phpcs:disable Squiz.Commenting.InlineComment.Empty
+// phpcs:disable Squiz.Commenting.InlineComment.InvalidEndChar
+// phpcs:disable Squiz.Commenting.InlineComment.NotCapital
+// phpcs:disable Squiz.PHP.CommentedOutCode.Found
+// phpcs:disable Squiz.WhiteSpace.FunctionSpacing.Before
+// phpcs:disable Squiz.WhiteSpace.MemberVarSpacing.FirstIncorrect
+
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;

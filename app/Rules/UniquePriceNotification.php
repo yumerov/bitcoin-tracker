@@ -1,5 +1,8 @@
 <?php
 
+// phpcs:disable Squiz.Strings.DoubleQuoteUsage.ContainsVar
+// phpcs:disable Squiz.WhiteSpace.ObjectOperatorSpacing.Before
+
 namespace App\Rules;
 
 use App\Models\PriceNotification;
@@ -28,7 +31,7 @@ class UniquePriceNotification implements ValidationRule
             ->where('price', round($this->price, 2))
             ->exists();
 
-        if ($exists) {
+        if ($exists === true) {
             $fail("Already the email '$this->email' for the price '$this->price'");
         }
     }

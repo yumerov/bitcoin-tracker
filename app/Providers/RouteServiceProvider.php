@@ -1,5 +1,11 @@
 <?php
 
+// phpcs:disable Squiz.PHP.DisallowInlineIf.Found
+// phpcs:disable Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue
+// phpcs:disable Squiz.ControlStructures.InlineIfDeclaration.NoBrackets
+// phpcs:disable Squiz.WhiteSpace.ObjectOperatorSpacing.Before
+// phpcs:disable Squiz.WhiteSpace.FunctionSpacing.Before
+
 namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;

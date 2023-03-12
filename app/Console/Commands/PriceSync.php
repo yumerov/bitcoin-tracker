@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 
 class PriceSync extends Command
 {
+
     /**
      * The name and signature of the console command.
      *
@@ -21,6 +22,7 @@ class PriceSync extends Command
      */
     protected $description = 'Command description';
 
+
     public function __construct(
         private readonly PriceSynchronizer $synchronizer
     ) {
@@ -32,8 +34,8 @@ class PriceSync extends Command
      */
     public function handle(): void
     {
-        $this->info("The synchronization begins.");
+        $this->info('The synchronization begins.');
         $this->synchronizer->synchronize();
-        $this->info("The synchronization have ended");
+        $this->info('The synchronization have ended');
     }
 }

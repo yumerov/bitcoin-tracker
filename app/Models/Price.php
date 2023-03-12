@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:disable Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed
+
 namespace App\Models;
 
 use Carbon\Carbon as Carbon;
@@ -14,16 +16,33 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Price extends Model
 {
+
+    /**
+     * Holds the model fillable/populatable fields
+     *
+     * @var string[]
+     */
     protected $fillable = [
         'price',
-        'timestamp'
+        'timestamp',
     ];
 
+    /**
+     * Holds fields type timestamp
+     *
+     * @var array|string[]
+     */
     protected array $dates = [
-        'timestamp'
+        'timestamp',
     ];
 
+    /**
+     * Disables audit timestamps for this model
+     *
+     * @var boolean
+     */
     public $timestamps = false;
+
 
     public function setTimestampAttribute($value)
     {

@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:disable Squiz.Objects.ObjectInstantiation.NotAssigned
+
 namespace App\Http\Controllers;
 
 use App\DTO\PriceNotificationDTO;
@@ -54,7 +56,7 @@ class SubscribeController extends BaseController
             $request->get('price')
         ));
 
-        if ($success) {
+        if ($success === true) {
             return new JsonResponse(status: Response::HTTP_NO_CONTENT);
         }
 

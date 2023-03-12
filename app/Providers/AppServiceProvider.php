@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:disable Squiz.Commenting.InlineComment.Empty
+
 namespace App\Providers;
 
 use App\Bitcoin\Bitfinex\Client;

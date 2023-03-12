@@ -4,5 +4,5 @@ namespace App\Bitcoin\Common;
 
 interface ClientInterface
 {
-    function get(): ?ResponseInterface;
+    public function get(): ?ResponseInterface;
 }

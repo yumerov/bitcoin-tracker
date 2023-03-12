@@ -10,9 +10,25 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PriceNotification extends Model
 {
+
+    /**
+     * Holds the table name
+     *
+     * @var string
+     */
     protected $table = 'price_notifications';
 
-    protected $fillable = ['email', 'price', 'active'];
+    /**
+     * Holds the model fillable/populatable fields
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'email',
+        'price',
+        'active',
+    ];
+
 
     public function setEmailAttribute($value)
     {

@@ -1,8 +1,9 @@
 <?php
 
+// phpcs:disable Squiz.Objects.ObjectInstantiation.NotAssigned
+
 namespace App\Http\Requests;
 
-use App\Models\PriceNotification;
 use App\Rules\UniquePriceNotification;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -25,8 +26,8 @@ class PriceNotificationRequest extends FormRequest
                 'required',
                 'numeric',
                 'gt:0',
-                new UniquePriceNotification($this->get('email'), $this->get('price'))
-            ]
+                new UniquePriceNotification($this->get('email'), $this->get('price')),
+            ],
         ];
     }
 

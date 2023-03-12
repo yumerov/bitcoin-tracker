@@ -1,5 +1,8 @@
 <?php
 
+// phpcs:disable Squiz.WhiteSpace.MemberVarSpacing.FirstIncorrect
+// phpcs:disable Squiz.PHP.CommentedOutCode.Found
+
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;

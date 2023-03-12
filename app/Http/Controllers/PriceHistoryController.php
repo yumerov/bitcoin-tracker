@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:disable Squiz.WhiteSpace.ObjectOperatorSpacing.Before
+
 namespace App\Http\Controllers;
 
 use App\Models\Price;

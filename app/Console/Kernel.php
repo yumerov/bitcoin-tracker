@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:disable Squiz.WhiteSpace.ObjectOperatorSpacing.Before
+
 namespace App\Console;
 
 use App\Console\Commands\PriceSync;
@@ -8,9 +10,16 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+
+    /**
+     * Holds registered commands
+     *
+     * @var string[]
+     */
     protected $commands = [
         PriceSync::class,
     ];
+
 
     /**
      * Define the application's command schedule.
