@@ -18,6 +18,9 @@ jobs:
     - name: Install Dependencies
       run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
 
+    - name: Bootstraping .env
+      run: cp .env.example .env
+
     - name: Generate key
       run: php artisan key:generate --ansi
 
