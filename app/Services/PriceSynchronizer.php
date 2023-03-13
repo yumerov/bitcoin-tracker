@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:disable Squiz.Objects.ObjectInstantiation.NotAssigned
+
 namespace App\Services;
 
 use App\Bitcoin\Common\ClientInterface;

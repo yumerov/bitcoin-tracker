@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:disable Squiz.Objects.ObjectInstantiation.NotAssigned
+
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
@@ -13,6 +15,7 @@ use Illuminate\Queue\SerializesModels;
 class PriceChangeEvent
 {
     use Dispatchable, SerializesModels;
+
 
     public function __construct(public readonly float $price)
     {

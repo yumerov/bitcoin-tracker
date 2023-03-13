@@ -14,6 +14,7 @@ class PriceChangeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+
     public function __construct(private readonly float $price)
     {
 
