@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $email
  * @property float $price
  * @property boolean $active
- * @method static Builder where(string $field, $value)
+ * @method static Builder where(string $field, $operatorOrValue, $value = null)
  */
 class PriceNotification extends Model
 {
