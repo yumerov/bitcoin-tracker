@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property string $email
+ * @property float $price
+ * @property boolean $active
  * @method static Builder where(string $field, $value)
  */
 class PriceNotification extends Model

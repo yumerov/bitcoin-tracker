@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 use App\DTO\PriceNotificationDTO;
 use App\Http\Requests\PriceNotificationRequest;
-use App\Services\PriceNotificationService;
+use App\Services\PriceSubscriptionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use OpenApi\Annotations as OA;
@@ -46,7 +46,7 @@ use OpenApi\Annotations as OA;
 class SubscribeController extends BaseController
 {
     public function __construct(
-        private readonly PriceNotificationService $service
+        private readonly PriceSubscriptionService $service
     ) { }
 
     public function __invoke(PriceNotificationRequest $request): JsonResponse
