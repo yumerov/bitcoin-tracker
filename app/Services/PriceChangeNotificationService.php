@@ -2,6 +2,7 @@
 
 // phpcs:disable Squiz.WhiteSpace.ObjectOperatorSpacing.Before
 // phpcs:disable Squiz.Objects.ObjectInstantiation.NotAssigned
+// phpcs:disable Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 
 namespace App\Services;
 
@@ -41,7 +42,7 @@ class PriceChangeNotificationService
             $subscription->deactivated_at = null;
             $subscription->save();
         });
-        $subscriptions->each(function (PriceSubscription $subscription) use ($price){
+        $subscriptions->each(function (PriceSubscription $subscription) use ($price) {
             $subscription->active = false;
             $subscription->deactivated_at = $price;
             $subscription->save();
