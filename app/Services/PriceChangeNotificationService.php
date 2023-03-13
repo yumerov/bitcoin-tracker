@@ -37,7 +37,7 @@ class PriceChangeNotificationService
                 ->send(new PriceChangeMail($subscription->price));
         });
 
-        $reactivatedSubscriptions->each(function (PriceSubscription $subscription) use ($price) {
+        $reactivatedSubscriptions->each(function (PriceSubscription $subscription) {
             $subscription->active = true;
             $subscription->deactivated_at = null;
             $subscription->save();
