@@ -6,7 +6,7 @@
 namespace App\Services;
 
 use App\DTO\PriceNotificationDTO;
-use App\Models\PriceNotification;
+use App\Models\PriceSubscription;
 use Exception;
 use Psr\Log\LoggerInterface;
 
@@ -20,7 +20,7 @@ class PriceSubscriptionService
     {
         $this->logger->info("Subscribing email '{$dto->email}' for price '{$dto->price}'");
         try {
-            (new PriceNotification([
+            (new PriceSubscription([
                 'email' => $dto->email,
                 'price' => $dto->price,
             ]))->save();
