@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Bitcoin\Common\ClientInterface;
+use App\Events\PriceChangeEvent;
 use App\Models\Price;
+use Illuminate\Contracts\Events\Dispatcher;
 use Psr\Log\LoggerInterface;
 use Exception;
 
@@ -15,10 +17,10 @@ class PriceSynchronizer
 
     public function __construct(
         private readonly ClientInterface $client,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        private readonly Dispatcher $dispatcher
     )
     {
-
     }
 
     /**
@@ -41,6 +43,7 @@ class PriceSynchronizer
                     'price' => $price->price,
                     'timestamp' => $price->timestamp,
                 ]);
+                $this->dispatcher->dispatch(new PriceChangeEvent($price->price));
             } else {
                 $this->logger->error('[PriceSynchronizer] Could not get response');
             }

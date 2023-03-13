@@ -7,6 +7,7 @@ use App\Bitcoin\Bitfinex\ResponseAdapter;
 use App\Bitcoin\Common\ClientInterface;
 use App\Services\PriceSynchronizer;
 use Carbon\Carbon;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\MockObject\Exception as MockException;
 use Psr\Log\LoggerInterface;
@@ -20,6 +21,7 @@ class PriceSynchronizerTest extends TestCase
     private PriceSynchronizer $synchronizer;
     private ClientInterface $client;
     private LoggerInterface $logger;
+    private Dispatcher $dispatcher;
 
     /**
      * @return void
@@ -32,10 +34,12 @@ class PriceSynchronizerTest extends TestCase
 
         $this->client = $this->createMock(ClientInterface::class);
         $this->logger = $this->createMock(LoggerInterface::class);
+        $this->dispatcher = $this->createMock(Dispatcher::class);
 
         $this->synchronizer = new PriceSynchronizer(
             $this->client,
-            $this->logger
+            $this->logger,
+            $this->dispatcher
         );
     }
 
