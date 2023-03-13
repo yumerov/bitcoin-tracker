@@ -8,27 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property string $email
  * @property float $price
+ * @property float|null $deactivated_at
  * @property boolean $active
  * @method static Builder where(string $field, $operatorOrValue, $value = null)
  */
-class PriceNotification extends Model
+class PriceSubscription extends Model
 {
 
     /**
-     * Holds the table name
-     *
-     * @var string
-     */
-    protected $table = 'price_notifications';
-
-    /**
-     * Holds the model fillable/populatable fields
+     * Holds the model fillable/populate fields
      *
      * @var string[]
      */
     protected $fillable = [
         'email',
         'price',
+        'deactivated_at',
         'active',
     ];
 

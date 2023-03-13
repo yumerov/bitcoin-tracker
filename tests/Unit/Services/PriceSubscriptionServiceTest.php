@@ -3,7 +3,7 @@
 namespace Unit\Services;
 
 use App\DTO\PriceNotificationDTO;
-use App\Models\PriceNotification;
+use App\Models\PriceSubscription;
 use App\Services\PriceSubscriptionService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\MockObject\Exception as MockException;
@@ -53,7 +53,7 @@ class PriceSubscriptionServiceTest extends TestCase
     public function test_subscribe_failed()
     {
         // Arrange
-        (new PriceNotification([
+        (new PriceSubscription([
             'email' => $this->dto->email,
             'price' => $this->dto->price
         ]))->save();

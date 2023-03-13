@@ -5,7 +5,7 @@
 
 namespace App\Rules;
 
-use App\Models\PriceNotification;
+use App\Models\PriceSubscription;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Translation\PotentiallyTranslatedString as PotentiallyTranslatedString;
@@ -27,7 +27,7 @@ class UniquePriceNotification implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $exists = PriceNotification::where('email', $this->email)
+        $exists = PriceSubscription::where('email', $this->email)
             ->where('price', round($this->price, 2))
             ->exists();
 

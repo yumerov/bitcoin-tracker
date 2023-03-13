@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('price_notifications', function (Blueprint $table) {
+        Schema::create('price_subscriptions', function (Blueprint $table) {
             $table->id();
             $table->string('email');
             $table->decimal('price', 8, 2);
+            $table->decimal('deactivated_at', 8, 2)->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('price_notifications');
+        Schema::dropIfExists('price_subscriptions');
     }
 };

@@ -2,7 +2,7 @@
 
 namespace Unit\Rules;
 
-use App\Models\PriceNotification;
+use App\Models\PriceSubscription;
 use App\Rules\UniquePriceNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -44,7 +44,7 @@ class UniquePriceNotificationTest extends TestCase
     {
         // Arrange
         $valid = false;
-        (new PriceNotification([
+        (new PriceSubscription([
             'email' => self::EMAIL,
             'price' => self::PRICE
         ]))->save();
