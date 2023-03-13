@@ -97,11 +97,11 @@ flowchart TB
 - - [x] DTO
 - - [x] Persist endpoint
 - - [x] Test coverage
-- [ ] New price
+- [x] New price
 - - [x] Sending mails
 - - [x] True to false toggling 'active' flag 
-- - [ ] False to true toggling 'active' flag
-- - [ ] Test coverage
+- - [x] False to true toggling 'active' flag
+- - [x] Test coverage
 - [ ] Containers
 - - [ ] Cron
 - - [ ] Queue
@@ -112,3 +112,4 @@ flowchart TB
 - I use an abstraction to get Bitcoin price to make able adding another source besides Bitfinex
 - I use `new class implements ...` to create single use class instances instead of creating dedicated class
 - Using single table with email and price, instead of dedicated table for emails to prevent the possible performance issues caused by the JOIN statements
+- At PriceChangeNotificationService::notifySubscribers uses individual updates to simplify the design but hurts the performance
