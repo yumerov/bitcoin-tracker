@@ -10,7 +10,7 @@ use App\Models\PriceNotification;
 use Exception;
 use Psr\Log\LoggerInterface;
 
-class PriceNotificationService
+class PriceSubscriptionService
 {
     public function __construct(
         private readonly LoggerInterface $logger

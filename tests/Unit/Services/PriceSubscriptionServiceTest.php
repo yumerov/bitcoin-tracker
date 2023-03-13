@@ -4,19 +4,19 @@ namespace Unit\Services;
 
 use App\DTO\PriceNotificationDTO;
 use App\Models\PriceNotification;
-use App\Services\PriceNotificationService;
+use App\Services\PriceSubscriptionService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\MockObject\Exception as MockException;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
-class PriceNotificationServiceTest extends TestCase
+class PriceSubscriptionServiceTest extends TestCase
 {
 
     use RefreshDatabase;
     private PriceNotificationDTO $dto;
     private LoggerInterface $logger;
-    private PriceNotificationService $service;
+    private PriceSubscriptionService $service;
 
     /**
      * @return void
@@ -29,7 +29,7 @@ class PriceNotificationServiceTest extends TestCase
 
         $this->dto = new PriceNotificationDTO('email@example.com', 69000);
         $this->logger = $this->createMock(LoggerInterface::class);
-        $this->service = new PriceNotificationService($this->logger);
+        $this->service = new PriceSubscriptionService($this->logger);
     }
 
     public function test_subscribe_successfully()
