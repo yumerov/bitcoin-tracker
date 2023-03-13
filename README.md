@@ -18,6 +18,8 @@ To run the application run the bash command in console 1: `php artisan serve`.
 
 **Temp**: In another console run `php artisan schedule:run`. After the dockerization is fixed this should be obsolete.
 
+**Temp**: In another console run `php artisan queue:work`. After the dockerization is fixed this should be obsolete.
+
 ### Hooks
 
 The project's git hooks aim to alert if there is an issue on stage committing and pushing to save CI time to get the feedback. 
@@ -36,6 +38,40 @@ The project's tests aim to guarantee the final product's quality by running scen
 
 Run in a bash console `composer test`.
 
+## Diagram
+
+```mermaid
+flowchart TB
+    subgraph out[Out of app]
+        browser
+        bitfinex
+        mail
+    end
+
+    browser[Browser] <-->|interacts with| fe[Frontend]
+    fe <-->|calls the API| laravel[Laravel]
+
+    subgraph appc[App container]
+        fe
+        laravel
+    end
+
+    subgraph dbc[DB container]
+        db[Database] <-->|persists and reads| laravel
+    end
+
+    subgraph cronc[Cron container]
+        laravel2[Laravel] <-->|persists and reads| db
+    end
+    
+    subgraph qc[Queue container]
+        laravel3[Laravel] <-->|persists and reads| db
+    end
+
+    bitfinex[Bitfinex] <-->|calls the API| laravel2
+    laravel3 -->|requests mail sending| mail[Mail servers]
+```
+
 ## Check list
 - [ ] Manual testing
 - [ ] Tests & coverage
@@ -43,7 +79,7 @@ Run in a bash console `composer test`.
 - [ ] Error handling
 
 ## TODOs:
-- [ ] General diagram
+- [x] General diagram
 - [ ] Initial/Basic
 - - [x] Laravel setup
 - - [ ] Dockerize
@@ -62,10 +98,14 @@ Run in a bash console `composer test`.
 - - [x] Persist endpoint
 - - [x] Test coverage
 - [ ] New price
-- - [ ] Sending mails
+- - [x] Sending mails
+- - [x] True to false toggling 'active' flag 
+- - [ ] False to true toggling 'active' flag
 - - [ ] Test coverage
-- [ ] Cron container
-- [ ] Test container(should include Xdebug)
+- [ ] Containers
+- - [ ] Cron
+- - [ ] Queue
+- - [ ] Test(should include Xdebug)
 
 ## Design decision notes
 
